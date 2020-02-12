@@ -1,5 +1,5 @@
 import random as r
-n=100
+n=10
 list=[]
 for i in range(n):
     list.append(round(r.randint(-n,n),2))
