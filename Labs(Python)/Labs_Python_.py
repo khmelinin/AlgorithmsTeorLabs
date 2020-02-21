@@ -52,12 +52,14 @@ def reset():
 #----------------------------------------better bouble-----------------
 def better_bubble_sort(nums, countt):
     for i in range(n-1):
+        sorted = True
         for j in range(n-1):
             countt+=1
             if nums[j]>nums[j+1]:
                 nums[j],nums[j+1]=nums[j+1],nums[j]
+                sorted = False
         
-        if nums==bestT:
+        if sorted==True:
             break
     return countt
 #----------------------------------------better bouble-----------------
@@ -91,41 +93,46 @@ def bubble_sort(nums, countt):
 #--------------bubble------------------------------------------
 
 print("Bubble")
-print("\n","Best after counter = ",bubble_sort(best, countB))
+BcountB = bubble_sort(best, countB)
+print("\n","Best after counter = ",BcountB)
 print(best)
-print("\n","Random after counter = ",bubble_sort(list, count))
+Bcount = bubble_sort(list, count)
+print("\n","Random after counter = ",Bcount)
 print(list)
-print("\n","Worst after counter = ",bubble_sort(worst, countW))
+BcountW = bubble_sort(worst, countW)
+print("\n","Worst after counter = ",BcountW)
 print(worst)
 print("\n","____________________________")
 
 reset()
 
 print("Better_Bubble")
-print("\n","Best after counter = ",better_bubble_sort(best, countB))
+BBcountB = better_bubble_sort(best, countB)
+print("\n","Best after counter = ",BBcountB)
 print(best)
-print("\n","Random after counter = ",better_bubble_sort(list, count))
+BBcount = better_bubble_sort(list, count)
+print("\n","Random after counter = ",BBcount)
 print(list)
-print("\n","Worst after counter = ",better_bubble_sort(worst, countW))
+BBcountW = better_bubble_sort(worst, countW)
+print("\n","Worst after counter = ",BBcountW)
 print(worst)
 print("\n","____________________________")
 
 reset()
 
 print("Insertion")
-print("\n","Best after counter = ",insertion_sort(best, countB))
+IcountB = insertion_sort(best, countB)
+print("\n","Best after counter = ",IcountB)
 print(best)
-print("\n","Random after counter = ",insertion_sort(list, count))
+Icount = insertion_sort(list, count)
+print("\n","Random after counter = ",Icount)
 print(list)
-print("\n","Worst after counter = ",insertion_sort(worst, countW))
+IcountW = insertion_sort(worst, countW)
+print("\n","Worst after counter = ",IcountW)
 print(worst)
 print("\n","____________________________")
 
-reset()
-
-
-#fig = plt.figure()
-#graph1 = plt.plot([countB,count,countW],[countB,count,countW])
+#graph1 = plt.plot([0,Bcount,100],[0,Bcount,100])
 #plt.show()
 
 
