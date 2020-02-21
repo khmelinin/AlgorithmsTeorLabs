@@ -30,6 +30,7 @@ print()
 countW=0
 print()
 
+bestT=best
 #----------------------------------------better bouble-----------------
 def better_bubble_sort(nums, countt):
     for i in range(n-1):
@@ -40,6 +41,7 @@ def better_bubble_sort(nums, countt):
         
         if best==bestT:
             break
+    return countt
 #----------------------------------------better bouble-----------------
 
 
@@ -57,23 +59,25 @@ def insertion_sort(nums, countt):
             j -= 1
         
         nums[j + 1] = item_to_insert
+    return countt
 #--------------insertion------------------------------------------
 
 #--------------bubble------------------------------------------
-def better_bubble_sort(nums, countt):
+def bubble_sort(nums, countt):
     for i in range(n-1):
         for j in range(n-1):
             countt+=1
             if best[j]>best[j+1]:
                 best[j],best[j+1]=best[j+1],best[j]
-        
+    return countt
 #--------------bubble------------------------------------------
 
-insertion_sort(list, count)
+count = bubble_sort(list, count)
+print("\n","-------------------------------")
 print("Random after")
 print(list)
 print()
-print(count,"\n","--------------------")
+print(count,"\n","-------------------------------")
 
 fig = plt.figure()
 graph1 = plt.plot([countB,count,countW],[countB,count,countW])
