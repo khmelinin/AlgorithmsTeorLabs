@@ -60,18 +60,13 @@ def insertion_sort(nums, countt):
 #--------------insertion------------------------------------------
 
 #--------------bubble------------------------------------------
-def bubble_sort(nums, countt):  
-    
-    swapped = True
-    while swapped:
-        swapped = False
-        for i in range(len(nums) - 1):
+def better_bubble_sort(nums, countt):
+    for i in range(n-1):
+        for j in range(n-1):
             countt+=1
-            if nums[i] > nums[i + 1]:
-                
-                nums[i], nums[i + 1] = nums[i + 1], nums[i]
-               
-                swapped = True
+            if best[j]>best[j+1]:
+                best[j],best[j+1]=best[j+1],best[j]
+        
 #--------------bubble------------------------------------------
 
 insertion_sort(list, count)
