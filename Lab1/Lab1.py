@@ -1,6 +1,3 @@
-
-import matplotlib.pyplot as plt
-import numpy as np
 import os
 import random as r
 n=10
@@ -73,10 +70,3 @@ print("Worst after")
 print(worst)
 print()
 print(countW,"\n","--------------------")
-
-
-
-
-fig = plt.figure()
-graph1 = plt.plot([countB,count,countW],[countB,count,countW])
-plt.show()
