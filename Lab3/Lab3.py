@@ -2,33 +2,40 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import random as r
-#--------------bubble------------------------------------------
-def bubble_sort(nums):
-    nums1=nums[:]
-    countt=0
-    for i in range(n-1):
-        for j in range(n-1):
+#-------------merge--------------------------------------------
+def merge(left, right, compare):
+    countt = 0
+    result = []
+    i, j = 0, 0
+    while i < len(left) and j < len(right):
+        if compare(left[i], right[j]):
+            result.append(left[i])
             countt+=1
-            if nums1[j]>nums1[j+1]:
-                nums1[j],nums1[j+1]=nums1[j+1],nums1[j]
-    return countt
-#--------------bubble-------------------------------------------
-#----------------------------------------better bubble-----------------
-def better_bubble_sort(nums):
-    countt=0
-    nums1=nums[:]
-    for i in range(n-1):
-        sorted=True
-        for j in range(n-1):
-            countt+=1
-            if nums1[j]>nums1[j+1]:
-                nums1[j],nums1[j+1]=nums1[j+1],nums1[j]
-                sorted=False
-        if sorted==True:
-            return countt
-    return countt
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    while i < len(left):
+        result.append(left[i])
+        i += 1
+    while j < len(right):
+        result.append(right[j])
+        j += 1
+    return result,countt
 
-#----------------------------------------better bubble-----------------
+def merge_sort(L, compare=operator.lt):
+    countt = 0
+    if len(L) < 2:
+        return 0
+    else:
+        middle = int(len(L) / 2)
+        left = merge_sort(L[:middle], compare)
+        right = merge_sort(L[middle:], compare)
+        L,countt = merge(left, right, compare)
+        return countt
+
+#-------------merge--------------------------------------------
+
 #--------------insertion------------------------------------------
 def insertion_sort(nums):  
     nums1=nums[:]
@@ -37,10 +44,8 @@ def insertion_sort(nums):
         item_to_insert = nums1[i]
         
         j = i - 1
-        #########
         countt+=1
         while j >= 0 and nums1[j] > item_to_insert:
-            #############
             countt+=1
             nums1[j + 1] = nums1[j]
             j -= 1
@@ -57,13 +62,13 @@ def insertion_sort(nums):
 n1=list(range(10,110,10))
 
 count=[]
-count2=[]
+#count2=[]
 count3=[]
 countB=[]
-countB2=[]
+#countB2=[]
 countB3=[]
 countW=[]
-countW2=[]
+#countW2=[]
 countW3=[]
 for n in n1:
 
@@ -71,26 +76,21 @@ for n in n1:
     best=list(range(1,n+1))
 
     #print("Best before")
-    #print(best,"\n")
+    print(best,"\n")
 
 
 
     list1=best[:]
     r.shuffle(list1)
-    #print("Random before")
-    #print(list,"\n")
+    print("Random before")
+    print(list,"\n")
 
 
     worst=list(range(n,0,-1))
 
-    #print("Worst before")
-    #print(worst,"\n\n")
+    print("Worst before")
+    print(worst,"\n\n")
 
-    countB.append(bubble_sort(best))
-
-    count.append(bubble_sort(list1))
-
-    countW.append(bubble_sort(worst))
 
     #print("Bubble")
     #print("\nBest after counter = ",a)
@@ -101,11 +101,6 @@ for n in n1:
     #print(countW)
     #print("\n____________________________")
 
-    countB2.append(better_bubble_sort(best))
-
-    count2.append(better_bubble_sort(list1))
-
-    countW2.append(better_bubble_sort(worst))
 
     #print("Better_Bubble")
     #print("\nBest after counter = ",a)
@@ -115,6 +110,9 @@ for n in n1:
     #print("\nWorst after counter = ",c)
     #print(countW2)
     #print("\n____________________________")
+
+    countB.append(merge_sort(best))
+
     countB3.append(insertion_sort(best))
 
     count3.append(insertion_sort(list1))
@@ -134,13 +132,13 @@ for n in n1:
 
 
 plt.plot(n1,count, "--y",
-         n1,count2, "--k",
+         #n1,count2, "--k",
          n1,count3, "--r",
          n1, countB, ":y",
-         n1, countB2, ":k",
+         #n1, countB2, ":k",
          n1, countB3, ":r",
          n1, countW, "y",
-         n1, countW2, "k",
+         #n1, countW2, "k",
          n1, countW3, "r"
          )
 plt.xlabel("length of list")
