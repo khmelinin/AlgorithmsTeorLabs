@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import random as r
+import operator
 #--------------bubble------------------------------------------
 def bubble_sort(nums):
     nums1=nums[:]

@@ -2,15 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import random as r
+import operator
 #-------------merge--------------------------------------------
 def merge(left, right, compare):
-    countt = 0
     result = []
     i, j = 0, 0
     while i < len(left) and j < len(right):
         if compare(left[i], right[j]):
             result.append(left[i])
-            countt+=1
             i += 1
         else:
             result.append(right[j])
@@ -21,18 +20,16 @@ def merge(left, right, compare):
     while j < len(right):
         result.append(right[j])
         j += 1
-    return result,countt
+    return result
 
 def merge_sort(L, compare=operator.lt):
-    countt = 0
     if len(L) < 2:
-        return 0
+        return L[:]
     else:
         middle = int(len(L) / 2)
         left = merge_sort(L[:middle], compare)
         right = merge_sort(L[middle:], compare)
-        L,countt = merge(left, right, compare)
-        return countt
+        return merge(left, right, compare)
 
 #-------------merge--------------------------------------------
 
@@ -111,7 +108,7 @@ for n in n1:
     #print(countW2)
     #print("\n____________________________")
 
-    countB.append(merge_sort(best))
+    merge_sort(best)
 
     countB3.append(insertion_sort(best))
 
@@ -131,13 +128,13 @@ for n in n1:
 
 
 
-plt.plot(n1,count, "--y",
+plt.plot(#n1,count, "--y",
          #n1,count2, "--k",
          n1,count3, "--r",
-         n1, countB, ":y",
+         #n1, countB, ":y",
          #n1, countB2, ":k",
          n1, countB3, ":r",
-         n1, countW, "y",
+         #n1, countW, "y",
          #n1, countW2, "k",
          n1, countW3, "r"
          )
