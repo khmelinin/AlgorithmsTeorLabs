@@ -18,18 +18,16 @@ def partition(A,p,r):
     return i+1
 
 ########## with 3 medians ###############
-def quickSort(L, ascending = True):
-    global count1 
-    count1+=quicksorthelp(L, 0, len(L), ascending)
+def quickSort(L, ascending = True): 
+    quicksorthelp(L, 0, len(L), ascending)
     
     
 
 
 def quicksorthelp(L, low, high, ascending = True): 
     result = 0
-    #
-   
-    #
+    global count1
+
     if low < high:
         
         pivot_location, result = Partition(L, low, high, ascending)  
@@ -38,7 +36,7 @@ def quicksorthelp(L, low, high, ascending = True):
     return result
 
 def Partition(L, low, high, ascending = True):
-    
+    global count1
     #print('Quicksort, Parameter L:')
     #print(L)
     result = 0 
@@ -47,11 +45,7 @@ def Partition(L, low, high, ascending = True):
     i = low + 1
     for j in range(low+1, high, 1):
         result += 1
-        #
-        
-        #
         if (ascending and L[j] < pivot) or (not ascending and L[j] > pivot):
-            
             L[i], L[j] = L[j], L[i]  
             i += 1
     L[low], L[i-1] = L[i-1], L[low] 
@@ -84,8 +78,8 @@ intl =[]
 for i in l:
     intl.append(int(i))
 amount = intl.pop(0)
-print(amount)
-print(intl);
+#print(amount)
+#print(intl);
 #quick_sort(intl,0,amount-1)
 quickSort(intl)
 print(count1)
