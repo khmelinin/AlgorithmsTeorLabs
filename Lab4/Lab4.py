@@ -18,32 +18,40 @@ def partition(A,p,r):
     return i+1
 
 ########## with 3 medians ###############
-def quickSort(L, ascending = True): 
-    quicksorthelp(L, 0, len(L), ascending)
+def quickSort(L, ascending = True):
+    global count1 
+    count1+=quicksorthelp(L, 0, len(L), ascending)
+    
+    
 
 
 def quicksorthelp(L, low, high, ascending = True): 
     result = 0
     #
-    global count1
-    count1+= 1
+   
     #
-    if low < high: 
+    if low < high:
+        
         pivot_location, result = Partition(L, low, high, ascending)  
         result += quicksorthelp(L, low, pivot_location, ascending)  
         result += quicksorthelp(L, pivot_location + 1, high, ascending)
     return result
 
 def Partition(L, low, high, ascending = True):
-    print('Quicksort, Parameter L:')
-    print(L)
+    
+    #print('Quicksort, Parameter L:')
+    #print(L)
     result = 0 
     pivot, pidx = median_of_three(L, low, high)
     L[low], L[pidx] = L[pidx], L[low]
     i = low + 1
     for j in range(low+1, high, 1):
         result += 1
+        #
+        
+        #
         if (ascending and L[j] < pivot) or (not ascending and L[j] > pivot):
+            
             L[i], L[j] = L[j], L[i]  
             i += 1
     L[low], L[i-1] = L[i-1], L[low] 
@@ -70,7 +78,7 @@ def median_of_three(L, low, high):
 #name = input()
 count = 0
 count1 = 0
-f = open('input_01_10.txt','r')
+f = open('inputs/input_09_100.txt','r')
 l = [line.strip() for line in f]
 intl =[]
 for i in l:
@@ -86,6 +94,6 @@ print(count1)
 
 
 
-f = open('Aoutput_01_10.txt','w')
+f = open('outputs/Aoutput_01_10.txt','w')
 f.write(str(count) + ' ')
 

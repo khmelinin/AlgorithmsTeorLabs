@@ -24,10 +24,52 @@
     <Compile Include="Lab4.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Ainput_01_10.txt" />
-    <Content Include="Aoutput_01_10.txt" />
-    <Content Include="input_01_10.txt" />
-    <Content Include="output_01_10.txt" />
+    <Content Include="inputs\Ainput_01_10.txt" />
+    <Content Include="inputs\input_01_10.txt" />
+    <Content Include="inputs\input_02_10.txt" />
+    <Content Include="inputs\input_03_10.txt" />
+    <Content Include="inputs\input_04_10.txt" />
+    <Content Include="inputs\input_05_10.txt" />
+    <Content Include="inputs\input_06_100.txt" />
+    <Content Include="inputs\input_07_100.txt" />
+    <Content Include="inputs\input_08_100.txt" />
+    <Content Include="inputs\input_09_100.txt" />
+    <Content Include="inputs\input_10_100.txt" />
+    <Content Include="inputs\input_11_1000.txt" />
+    <Content Include="inputs\input_12_1000.txt" />
+    <Content Include="inputs\input_13_1000.txt" />
+    <Content Include="inputs\input_14_1000.txt" />
+    <Content Include="inputs\input_15_1000.txt" />
+    <Content Include="inputs\input_16_10000.txt" />
+    <Content Include="inputs\input_17_10000.txt" />
+    <Content Include="inputs\input_18_10000.txt" />
+    <Content Include="inputs\input_19_10000.txt" />
+    <Content Include="inputs\input_20_10000.txt" />
+    <Content Include="outputs\Aoutput_01_10.txt" />
+    <Content Include="outputs\output_01_10.txt" />
+    <Content Include="outputs\output_02_10.txt" />
+    <Content Include="outputs\output_03_10.txt" />
+    <Content Include="outputs\output_04_10.txt" />
+    <Content Include="outputs\output_05_10.txt" />
+    <Content Include="outputs\output_06_100.txt" />
+    <Content Include="outputs\output_07_100.txt" />
+    <Content Include="outputs\output_08_100.txt" />
+    <Content Include="outputs\output_09_100.txt" />
+    <Content Include="outputs\output_10_100.txt" />
+    <Content Include="outputs\output_11_1000.txt" />
+    <Content Include="outputs\output_12_1000.txt" />
+    <Content Include="outputs\output_13_1000.txt" />
+    <Content Include="outputs\output_14_1000.txt" />
+    <Content Include="outputs\output_15_1000.txt" />
+    <Content Include="outputs\output_16_10000.txt" />
+    <Content Include="outputs\output_17_10000.txt" />
+    <Content Include="outputs\output_18_10000.txt" />
+    <Content Include="outputs\output_19_10000.txt" />
+    <Content Include="outputs\output_20_10000.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="inputs\" />
+    <Folder Include="outputs\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
