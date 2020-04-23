@@ -1,46 +1,219 @@
-# Реализация пирамидальной сортировки на Python
+class MinHeap:
+    #Клас котрий реалізую власний тип данних Min-Heap
+    _list = []  # Масив, котрий зберігає елементи піраміди
 
-# Процедура для преобразования в двоичную кучу поддерева с корневым узлом i, что является индексом в arr[]. n - размер кучи
-def heapify(arr, n, i):
-    largest = i # Initialize largest as root
-    l = 2 * i + 1   # left = 2*i + 1
-    r = 2 * i + 2   # right = 2*i + 2
+    def __init__(self):
+        #Конструктор класу
+        pass
 
-  # Проверяем существует ли левый дочерний элемент больший, чем корень
+    @property
+    def heap_size(self):
+        #Властивість(getter), що повертає розмір піраміди
+        return len(self._list)
 
-    if l < n and arr[i] < arr[l]:
-        largest = l
+    def add(self, item):
+        #Метод, що дозволяє додати новий елемент до піраміди та поставивши його у потрібне місце після цього
+        self._list.append(item)    # додаємо елемент в кінець масиву 
+        i = self.heap_size - 1     # позначаємо його дочірнім
+        parent = int((i - 1) / 2)  # знаходимо батьківський елемент для нього
 
-    # Проверяем существует ли правый дочерний элемент больший, чем корень
+        # будемо обмінювати в циклі елементи,тим самим підіймати його по піраміді вгору, доки не знайдеться елемент, що буде меншим за елемент, що ми додали
+        while i > 0 and self._list[parent] > self._list[i]:
+            self._list[i], self._list[parent] = self._list[parent], self._list[i]
 
-    if r < n and arr[largest] < arr[r]:
-        largest = r
+            i = parent
+            parent = int((i - 1) / 2)
 
-    # Заменяем корень, если нужно
-    if largest != i:
-        arr[i],arr[largest] = arr[largest],arr[i] # свап
+    def heapify(self, i):
+        #Метод, що перевіряє піраміду на властивість неспадної піраміди та повертає цю властивість якщо вона була втрачена
 
-        # Применяем heapify к корню.
-        heapify(arr, n, largest)
+        # будемо опускатися вниз по піраміді, щоразу визначаючи найменший елемент та ставлячи його в правильну позицію доки властивість неспадної піраміди не буде виконана
+        while True:
+            left_child = 2 * i + 1  # індекс лівого дочірнього елемента
+            right_child = 2 * i + 2  # індекс правого дочірнього елемента
+            smallest_child = i  # індекс найменшого елемента
 
-# Основная функция для сортировки массива заданного размера
-def heapSort(arr):
-    n = len(arr)
+            if left_child < self.heap_size and self._list[left_child] < self._list[smallest_child]:
+                smallest_child = left_child
 
-    # Построение max-heap.
-    for i in range(n, -1, -1):
-        heapify(arr, n, i)
+            if right_child < self.heap_size and self._list[right_child] < self._list[smallest_child]:
+                smallest_child = right_child
 
-    # Один за другим извлекаем элементы
-    for i in range(n-1, 0, -1):
-        arr[i], arr[0] = arr[0], arr[i] # свап 
-        heapify(arr, i, 0)
+            if smallest_child == i:
+                break
 
-# Управляющий код для тестирования
-arr = [ 12, 11, 13, 5, 6, 7]
-heapSort(arr)
-n = len(arr)
-print ("Sorted array is")
-for i in range(n):
-    print ("%d" %arr[i]),
-# Этот код предоставил Mohit Kumra
+            self._list[i], self._list[smallest_child] = self._list[smallest_child], self._list[i]
+
+            i = smallest_child
+
+    def get_min(self, status_delete=False):
+        #Метод, що повертає мінімальний елемент піраміди, при цьому його можна видалити з піраміди, передавши як аргумент status_delete=True
+        if not status_delete:
+            return self._list[0]
+
+        # якщо елемент необхідно видалити з піраміди:
+        # 1. обмінюємо місцями перший та останній елемент
+        # 2. видаляємо останній(мінімальний) елемент записавши результат в змінну
+        # 3. викликаємо метод heapify, що був описаний раніше в цьому класі
+        self._list[0], self._list[self.heap_size-1] =\
+            self._list[self.heap_size-1], self._list[0]
+
+        min_item = self._list.pop(self.heap_size-1)
+        self.heapify(0)
+
+        return min_item
+
+
+class MaxHeap:
+    #Клас котрий реалізує власний тип данних Max-Heap
+    _list = []  # Масив, котрий зберігає елементи піраміди
+
+    def __init__(self):
+        #Конструктор класу
+        pass
+
+    @property
+    def heap_size(self):
+        #Властивість(getter), що повертає розмір піраміди
+        return len(self._list)
+
+    def add(self, item):
+        #Метод, що дозволяє додати новий елемент до піраміди та поставивши його у потрібне місце після цього
+        self._list.append(item)  # додаємо елемент в кінець масиву
+        i = self.heap_size - 1  # позначаємо його дочірнім
+        parent = int((i - 1) / 2)  # знаходимо батьківський елемент для нього
+
+        # будемо обмінювати в циклі елементи,тим самим підіймати його по піраміді вгору, доки не знайдеться елемент, що буде меншим за елемент, що ми додали
+        while i > 0 and self._list[parent] < self._list[i]:
+            self._list[i], self._list[parent] = self._list[parent], self._list[i]
+
+            i = parent
+            parent = int((i - 1) / 2)
+
+    def heapify(self, i):
+        #Метод, що перевіряє піраміду на властивість незростаючої піраміди та повертає цю властивість якщо вона була втрачена
+
+        # будемо опускатися вниз по піраміді, щоразу визначаючи найменший елемент та ставлячи його в правильну позицію доки властивість неспадної піраміди не буде виконана
+        while True:
+            left_child = 2 * i + 1  # індекс лівого дочірнього елемента
+            right_child = 2 * i + 2  # індекс правого дочірнього елемента
+            largest_child = i  # індекс найбільшого елемента
+
+            if left_child < self.heap_size and self._list[left_child] > self._list[largest_child]:
+                largest_child = left_child
+
+            if right_child < self.heap_size and self._list[right_child] > self._list[largest_child]:
+                largest_child = right_child
+
+            if largest_child == i:
+                break
+
+            self._list[i], self._list[largest_child] = self._list[largest_child], self._list[i]
+            i = largest_child
+
+    def get_max(self, status_delete=False):
+        #Метод, що повертає максимальний елемент піраміди, при цьому його можна видалити з піраміди, передавши як аргумент status_delete=True
+        if not status_delete:
+            return self._list[0]
+
+        # якщо елемент необхідно видалити з піраміди:
+        # 1) обмінюємо місцями перший та останній елемент
+        # 2) видаляємо останній(максимальний) елемент записавши результат в
+        #    змінну
+        # 3) викликаємо метод heapify, що був описаний раніше в цьому класі
+        self._list[0], self._list[self.heap_size - 1] = self._list[self.heap_size - 1], self._list[0]
+
+        max_item = self._list.pop(self.heap_size - 1)
+        self.heapify(0)
+
+        return max_item
+
+
+def check_count(low_heap: MaxHeap, high_heap: MinHeap):
+    #Функція, що перевіряє умову різниці елементів між пірамідами(різниця в к-сті елементів має бути не більше одного)
+
+    # якщо low_heap більше на два елементи, то видаляємо з неї найбільший та вставляємо до high_heap
+    if (low_heap.heap_size - high_heap.heap_size) == 2:
+        high_heap.add(low_heap.get_max(status_delete=True))
+
+    # якщо high_heap більше на два елементи, то видаляємо з неї найменший та вставляємо до low_heap
+    elif (high_heap.heap_size - low_heap.heap_size) == 2:
+        low_heap.add(high_heap.get_min(status_delete=True))
+
+
+def get_median(low_heap: MaxHeap, high_heap: MinHeap, count):
+    #Функція, що повертає одну чи дві медіани в залежності від к-сті переданих елементів"""
+
+    # якщо до програми було подано парну кількість елементів повертаємо дві медіани - найбільший з low_heap та найменший з high_heap
+    if count % 2 == 0:
+        return f"{low_heap.get_max()} {high_heap.get_min()}"
+
+    # інакше медіана одна і зберігається в піраміді в якій на один елемент більше
+    else:
+        if low_heap.heap_size > high_heap.heap_size:
+            return low_heap.get_max()
+        else:
+            return high_heap.get_min()
+
+
+def program(file_name,file_name1):
+    #Основна функція, де відбувається зчитування з файлу, виконання поставлених задач та запис результату до файлу
+
+
+    # зчитуємо дані з файлу до масиву
+    with open(file_name, 'r') as file:
+        data = (file.read()).split('\n')
+        data = [int(elem) for elem in data]
+        n, data = data[0], data[1:]
+
+    # ініціалізуємо low_heap та high_heap
+    low_heap = MaxHeap()
+    high_heap = MinHeap()
+
+    # первий елемент додаємо до low_heap
+    low_heap.add(data[0])
+
+
+    # зчитуємо дані з файлу до масиву
+    with open(file_name1, 'w') as file:
+        # перша медіана буде перший елемент, що був доданий до low_heap
+        file.write(str(low_heap.get_max()) + "\n")
+
+        # поступово опрацьовуємо всі вхідні елементи
+        for i in range(1, n):
+            num = data[i]  # беремо новий елемент з масиву
+
+            # якщо елемент менший за максимальний елемент low_heap, а отже у відсортованому масиві знаходився б у 1 половині то додаємо його до low_heap
+            if num < low_heap.get_max():
+                low_heap.add(num)
+            # інакше до high_heap
+            else:
+                high_heap.add(num)
+
+            # перевіряємо на різницю елементів між пірамідами
+            check_count(low_heap, high_heap)
+            # записуємо отриману медіану до файлу
+            file.write(str(get_median(low_heap, high_heap, i + 1)) + "\n")
+
+
+
+program('Inputs/input_01_10.txt','Outputs/khmelinin_output_01_10.txt')
+program('Inputs/input_02_10.txt','Outputs/khmelinin_output_02_10.txt')
+program('Inputs/input_03_10.txt','Outputs/khmelinin_output_03_10.txt')
+program('Inputs/input_04_10.txt','Outputs/khmelinin_output_04_10.txt')
+program('Inputs/input_05_10.txt','Outputs/khmelinin_output_05_10.txt')
+program('Inputs/input_06_100.txt','Outputs/khmelinin_output_06_100.txt')
+program('Inputs/input_07_100.txt','Outputs/khmelinin_output_07_100.txt')
+program('Inputs/input_08_100.txt','Outputs/khmelinin_output_08_100.txt')
+program('Inputs/input_09_100.txt','Outputs/khmelinin_output_09_100.txt')
+program('Inputs/input_10_100.txt','Outputs/khmelinin_output_10_100.txt')
+program('Inputs/input_11_1000.txt','Outputs/khmelinin_output_11_1000.txt')
+program('Inputs/input_12_1000.txt','Outputs/khmelinin_output_12_1000.txt')
+program('Inputs/input_13_1000.txt','Outputs/khmelinin_output_13_1000.txt')
+program('Inputs/input_14_1000.txt','Outputs/khmelinin_output_14_1000.txt')
+program('Inputs/input_15_1000.txt','Outputs/khmelinin_output_15_1000.txt')
+program('Inputs/input_16_10000.txt','Outputs/khmelinin_output_16_10000.txt')
+program('Inputs/input_17_10000.txt','Outputs/khmelinin_output_17_10000.txt')
+program('Inputs/input_18_10000.txt','Outputs/khmelinin_output_18_10000.txt')
+program('Inputs/input_19_10000.txt','Outputs/khmelinin_output_19_10000.txt')
+program('Inputs/input_20_10000.txt','Outputs/khmelinin_output_20_10000.txt')
