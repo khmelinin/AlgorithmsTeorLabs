@@ -13,8 +13,8 @@ class MinHeap:
 
     def add(self, item):
         #Метод, що дозволяє додати новий елемент до піраміди та поставивши його у потрібне місце після цього
-        self._list.append(item)    # додаємо елемент в кінець масиву 
-        i = self.heap_size - 1     # позначаємо його дочірнім
+        self._list.append(item)  # додаємо елемент в кінець масиву
+        i = self.heap_size - 1   # позначаємо його дочірнім
         parent = int((i - 1) / 2)  # знаходимо батьківський елемент для нього
 
         # будемо обмінювати в циклі елементи,тим самим підіймати його по піраміді вгору, доки не знайдеться елемент, що буде меншим за елемент, що ми додали
@@ -52,10 +52,12 @@ class MinHeap:
             return self._list[0]
 
         # якщо елемент необхідно видалити з піраміди:
-        # 1. обмінюємо місцями перший та останній елемент
-        # 2. видаляємо останній(мінімальний) елемент записавши результат в змінну
-        # 3. викликаємо метод heapify, що був описаний раніше в цьому класі
-        self._list[0], self._list[self.heap_size-1] = self._list[self.heap_size-1], self._list[0]
+        # 1) обмінюємо місцями перший та останній елемент
+        # 2) видаляємо останній(мінімальний) елемент записавши результат в
+        #    змінну
+        # 3) викликаємо метод heapify, що був описаний раніше в цьому класі
+        self._list[0], self._list[self.heap_size-1] =\
+            self._list[self.heap_size-1], self._list[0]
 
         min_item = self._list.pop(self.heap_size-1)
         self.heapify(0)
@@ -64,11 +66,11 @@ class MinHeap:
 
 
 class MaxHeap:
-    #Клас котрий реалізує власний тип данних Max-Heap
+    #Клас котрий реалізую власний тип данних Max-Heap
     _list = []  # Масив, котрий зберігає елементи піраміди
 
     def __init__(self):
-        #Конструктор класу
+        #Медод ініціалізатор
         pass
 
     @property
@@ -90,7 +92,7 @@ class MaxHeap:
             parent = int((i - 1) / 2)
 
     def heapify(self, i):
-        #Метод, що перевіряє піраміду на властивість незростаючої піраміди та повертає цю властивість якщо вона була втрачена
+        #Метод, що перевіряє піраміду на властивість незростаючої піраміди та повертає цю властивість якщо вона була втрачена"""
 
         # будемо опускатися вниз по піраміді, щоразу визначаючи найменший елемент та ставлячи його в правильну позицію доки властивість неспадної піраміди не буде виконана
         while True:
@@ -141,7 +143,7 @@ def check_count(low_heap: MaxHeap, high_heap: MinHeap):
 
 
 def get_median(low_heap: MaxHeap, high_heap: MinHeap, count):
-    #Функція, що повертає одну чи дві медіани в залежності від к-сті переданих елементів"""
+    #Функція, що повертає одну чи дві медіани в залежності від к-сті переданих елементів
 
     # якщо до програми було подано парну кількість елементів повертаємо дві медіани - найбільший з low_heap та найменший з high_heap
     if count % 2 == 0:
@@ -155,9 +157,10 @@ def get_median(low_heap: MaxHeap, high_heap: MinHeap, count):
             return high_heap.get_min()
 
 
-def program(file_name,file_name1):
+def program(filename, filename1):
     #Основна функція, де відбувається зчитування з файлу, виконання поставлених задач та запис результату до файлу
 
+    file_name = filename  # ім'я файлу
 
     # зчитуємо дані з файлу до масиву
     with open(file_name, 'r') as file:
@@ -172,9 +175,8 @@ def program(file_name,file_name1):
     # первий елемент додаємо до low_heap
     low_heap.add(data[0])
 
-
-    # зчитуємо дані з файлу до масиву
-    with open(file_name1, 'w') as file:
+    # записуємо результати виконання до файлу
+    with open(filename1, 'w') as file:
         # перша медіана буде перший елемент, що був доданий до low_heap
         file.write(str(low_heap.get_max()) + "\n")
 
@@ -182,7 +184,7 @@ def program(file_name,file_name1):
         for i in range(1, n):
             num = data[i]  # беремо новий елемент з масиву
 
-            # якщо елемент менший за максимальний елемент low_heap, а отже у відсортованому масиві знаходився б у 1 половині то додаємо його до low_heap
+            # якщо елемент менший за максимальний елемент low_heap а отже у відсортованому масиві знаходився б у 1 половині то додаємо його до low_heap
             if num < low_heap.get_max():
                 low_heap.add(num)
             # інакше до high_heap
@@ -191,28 +193,9 @@ def program(file_name,file_name1):
 
             # перевіряємо на різницю елементів між пірамідами
             check_count(low_heap, high_heap)
-            # записуємо отриману медіану до файлуxx
+            # записуємо отриману медіану до файлу
             file.write(str(get_median(low_heap, high_heap, i + 1)) + "\n")
 
 
 
-program('Inputs/input_01_10.txt','Outputs/khmelinin_output_01_10.txt')
-program('Inputs/input_02_10.txt','Outputs/khmelinin_output_02_10.txt')
-program('Inputs/input_03_10.txt','Outputs/khmelinin_output_03_10.txt')
-program('Inputs/input_04_10.txt','Outputs/khmelinin_output_04_10.txt')
-program('Inputs/input_05_10.txt','Outputs/khmelinin_output_05_10.txt')
-program('Inputs/input_06_100.txt','Outputs/khmelinin_output_06_100.txt')
-program('Inputs/input_07_100.txt','Outputs/khmelinin_output_07_100.txt')
-program('Inputs/input_08_100.txt','Outputs/khmelinin_output_08_100.txt')
-program('Inputs/input_09_100.txt','Outputs/khmelinin_output_09_100.txt')
-program('Inputs/input_10_100.txt','Outputs/khmelinin_output_10_100.txt')
-program('Inputs/input_11_1000.txt','Outputs/khmelinin_output_11_1000.txt')
-program('Inputs/input_12_1000.txt','Outputs/khmelinin_output_12_1000.txt')
-program('Inputs/input_13_1000.txt','Outputs/khmelinin_output_13_1000.txt')
-program('Inputs/input_14_1000.txt','Outputs/khmelinin_output_14_1000.txt')
-program('Inputs/input_15_1000.txt','Outputs/khmelinin_output_15_1000.txt')
-program('Inputs/input_16_10000.txt','Outputs/khmelinin_output_16_10000.txt')
-program('Inputs/input_17_10000.txt','Outputs/khmelinin_output_17_10000.txt')
-program('Inputs/input_18_10000.txt','Outputs/khmelinin_output_18_10000.txt')
-program('Inputs/input_19_10000.txt','Outputs/khmelinin_output_19_10000.txt')
-program('Inputs/input_20_10000.txt','Outputs/khmelinin_output_20_10000.txt')
+program('Inputs/input_16_10000.txt','Outputs/khmelinin_output_16_10000.txt') # вписуємо шляхи до файлів
