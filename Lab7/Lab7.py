@@ -42,31 +42,23 @@ for j in range(2 + N, len(data)): # заполнение массива сумм
     S.append(int(data[j]))
 
 for l in range(N*3): # заполнение хеш таблицы нулями
-    HashTableD.append([0]*30)
+    HashTableD.append([0])
 
 for l in range(N*3): # заполнение хеш таблицы нулями
-    HashTableM.append([0]*30)
+    HashTableM.append([0])
 
 
-for q1 in range(len(A)): # записываем значения в хеш таблицу
-    z1 = 0
-    while True:
-        if HashTableD[Hash_divide(N*3, A[q1])][z1] != 0: # проверка на коллизию
-            z1 += 1 # переход на другой столбец хеш таблицы
-            colisionsD += 1 
-        else:
-            HashTableD[Hash_divide(N*3, A[q1])][z1] = A[q1] 
-            break
+for q1 in range(len(A)): 
+     HashTableD[Hash_divide(N*3, A[q1])].insert(-1, A[q1])
+     if len(HashTableD[Hash_divide(N*3, A[q1])]) > 2: # проверка на коллизию
+        colisionsD += 1
+           
+           
 
 for q2 in range(len(A)):
-    z2 = 0
-    while True:
-        if HashTableD[Hash_multiply(N*3, A[q2])][z2] != 0: # проверка на коллизию
-            z2 += 1 # переход на другой столбец хеш таблицы
-            colisionsM += 1
-        else:
-            HashTableM[Hash_multiply(N*3, A[q2])][z2] = A[q2]
-            break
+    HashTableM[Hash_multiply(N*3, A[q2])].insert(-1, A[q2])
+    if len(HashTableM[Hash_multiply(N*3, A[q2])]) > 2: # проверка на коллизию
+        colisionsM += 1
 
 ### D ###
 with open("Outputs/khmelinin_output_100000_01.txt", 'w') as file: # запись в файл
