@@ -1,32 +1,52 @@
-import math
-def equation(x, y):
-    return math.sqrt((x[0]-y[0])**2+(x[1]-y[1])**2)
+import math as m
 
-def solution(points):
-    list = [points[0]]
+# длинна между точками
+def func(a, b):
+    return m.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+
+def greedy(coordinates):
+    # массив точек
+    way = [coordinates[0]]
+    # длинна пути
     size = 0
-    first = points.pop(0)
-    while len(points)!=0:
-        min_len = equation(list[-1], points[0])
+    first = coordinates.pop(0)
+    # проход по всем точкам
+    while len(coordinates) != 0:
+        # временная переменная для сохранения минимальной длинны
+        min_len = func(way[-1], coordinates[0])
         j = 0
-        for i in range(len(points)):
-            tmp = equation(list[-1], points[i])
-            if tmp<min_len:
-                min_len=tmp
-                j=i
-        size+=min_len
-        points[0],points[j]=points[j],points[0]
-        list.append(points.pop(0))
-    size+=equation(list[-1],first)
-    list.append(first)
-    return [i[2] for i in list], size
+        # нахождение минимальной длинны
+        for i in range(len(coordinates)):
+            # создать переменную, чтобы временно хранить длину пути между двумя вершинами
+            tmp = func(way[-1],coordinates[i])
+            if tmp < min_len:
+                min_len = tmp
+                j = i
+        # увеличение пройденного пути
+        size += min_len
+        # обмен текущего и первого элементов
+        coordinates[0], coordinates[j] = coordinates[j], coordinates[0]
+        way.append(coordinates.pop(0))
+    # увеличение пройденного пути между первым и вторым
+    size += func(way[-1], first)
+    # добавление первой вершины
+    way.append(first)
+    return [i[2] for i in way], size
 
-#name = input("enter file name: ")
-f_in=open("Inputs\input_01"+".txt","r")
-#f_in.readline()
-points = [[int(j) for j in i.split()] for i in f_in.readlines()]
-for i in range(len(points)):
-    points[i].append(i)
-f_out = open("khmelinin_output_01"+".txt","w")
-list, size = solution(points)
-f_out.write(str(int(size))+'\n'+str(list))
+def main(): 
+    # чтение из файла
+    file = open("Inputs\input_08.txt", 'r')
+    file.readline()
+    points = [[int(j) for j in i.split()] for i in file.readlines()]
+    for i in range(len(points)):
+        points[i].append(i)
+    file.close()
+
+    # запись в файл
+    file = open("Outputs\khmelinin_output_08.txt", 'w')
+    way, size = greedy(points)
+    file.write(str(size) + '\n')
+    file.writelines(str(way) + '\n')
+
+if __name__ == '__main__':
+    main()
